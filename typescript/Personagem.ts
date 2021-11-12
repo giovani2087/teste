@@ -29,6 +29,7 @@ while (option != 9) {
 
     switch (option) {
         case 1:
+            option +teclado(sansa.nome);
 
             break;
         case 2:
@@ -38,7 +39,7 @@ while (option != 9) {
             sansa.defesa += 10;
             break;
         case 4:
-            console.log(`Personagem >>`, { case: 1 });
+            console.log(`Personagem >>`, sansa);
             break;
         case 9:
             console.log(`Encerrando Treinamento`);
