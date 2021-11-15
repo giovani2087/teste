@@ -44,8 +44,16 @@ export default class Personagem {
         this.energia -= desgaste;
         return desgaste;
     }
-    isDead(): boolean {
-        return this.energia < 0;
+    isDead(morte: Boolean): boolean {
+        //return this.energia < 0;
+        if (this.energia < 0) {
+            return true;
+
+        } else {
+            return false;
+        }
+
+
 
     }
 }

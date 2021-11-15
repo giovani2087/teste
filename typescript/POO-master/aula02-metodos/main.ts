@@ -6,7 +6,9 @@ let person: Personagem = new Personagem("Sansa Stark", 100, 40, 20, 20);
 let teclado = prompt();
 let option: number = 0;
 
-while (option != 9 || person.isDead()) {
+
+
+while (option != 9 || person.energia > 0) {
 
     console.log("+========= Personagem =============+");
     console.log("|1. Treinar ataque                 |");
