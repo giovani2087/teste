@@ -2,10 +2,10 @@ export default class Personagem {
     constructor(
         private _nome: string,
         private energia: number,
-        private vida: number,
+        private _vida: number,
         private ataque: number,
         private defesa: number
-    ) {}
+    ) { }
 
     //  TODA VEZ QUE PENSAR EM LER DADOS NA CLASSE - USE PARAMETRO
     //  TODA VEZ QUE PENSAR EM IMPRIMIR NA CLASSE, USE RETORNO
@@ -18,6 +18,14 @@ export default class Personagem {
         this._nome = nome;
     }
 
+
+    public get vida(): number {
+        return this._vida;
+    }
+
+    public set vida(nome: number) {
+        this._vida = this.vida;
+    }
     public status(): string {
         return (
             "Guerreiro: \n" +
