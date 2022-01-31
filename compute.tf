@@ -3,7 +3,7 @@
 # 
 
 resource "oci_core_instance" "app_instance" {
-  availability_domain                 = AD-1
+  availability_domain                 = "LeGo:SA-VINHEDO-1-AD-1"
   compartment_id                      = var.compartment_ocid
   display_name                        = "mushop-${random_string.deploy_id.result}-${count.index}"
   shape                               = local.instance_shape
