@@ -3,7 +3,7 @@
 # 
 
 resource "oci_core_instance" "app_instance" {
-  availability_domain                 = data.oci_identity_availability_domain.ad.name
+  availability_domain                 = AD-1
   compartment_id                      = var.compartment_ocid
   display_name                        = "mushop-${random_string.deploy_id.result}-${count.index}"
   shape                               = local.instance_shape
