@@ -1,0 +1,16 @@
+"mushopQuickstarts.0006": {
+    "solutionExposure": "prod",
+    "name": "${Messages.solutionsHub.solutions.mushopQuickstarts.solutionName()}",
+    "description": "${Messages.solutionsHub.solutions.mushopQuickstarts.stackDescription()}",
+    "longDescription": {
+        "description": "${Messages.solutionsHub.solutions.mushopQuickstarts.longDescription()}"
+    },
+    "icon": {
+        "iconLine1": "MuShop Basic",
+        "iconLine2": "with",
+        "iconLine3": "Quickstarts"
+    },
+    "terraformVersion": "0.14.x",
+    "isFreeTier": true,
+	"categoryId": "0"
+}

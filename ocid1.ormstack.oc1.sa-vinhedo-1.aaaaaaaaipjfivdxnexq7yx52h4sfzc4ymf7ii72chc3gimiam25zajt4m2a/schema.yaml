@@ -1,0 +1,521 @@
+# Copyright (c) 2019-2021 Oracle and/or its affiliates. All rights reserved.
+# Licensed under the Universal Permissive License v 1.0 as shown at http://oss.oracle.com/licenses/upl.
+# 
+
+title: "Three-tier web application using Always-Free resources"
+description: ${Messages.solutionsHub.solutions.mushopQuickstarts.longDescription()}
+schemaVersion: 1.1.0
+version: "20190304"
+
+source:
+  type: quickstart
+logoUrl: data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2aWV3Qm94PSIwIDAgMTI4IDEyOCI+CiAgPGRlZnM+CiAgICA8ZmlsdGVyIGlkPSJQYXRoXzI3IiB4PSIwIiB5PSIwIiB3aWR0aD0iNjguMjciIGhlaWdodD0iNjIuOTUxIiBmaWx0ZXJVbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8ZmVPZmZzZXQgZHg9IjEiIGR5PSIzIiBpbnB1dD0iU291cmNlQWxwaGEiLz4KICAgICAgPGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iMyIgcmVzdWx0PSJibHVyIi8+CiAgICAgIDxmZUZsb29kIGZsb29kLW9wYWNpdHk9IjAuNTAyIi8+CiAgICAgIDxmZUNvbXBvc2l0ZSBvcGVyYXRvcj0iaW4iIGluMj0iYmx1ciIvPgogICAgICA8ZmVDb21wb3NpdGUgaW49IlNvdXJjZUdyYXBoaWMiLz4KICAgIDwvZmlsdGVyPgogICAgPGZpbHRlciBpZD0icGF0aDUiIHg9IjE3LjYzNyIgeT0iMTEuNCIgd2lkdGg9IjMyLjUzNyIgaGVpZ2h0PSIzOS4xNzMiIGZpbHRlclVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CiAgICAgIDxmZU9mZnNldCBkeT0iMyIgaW5wdXQ9IlNvdXJjZUFscGhhIi8+CiAgICAgIDxmZUdhdXNzaWFuQmx1ciBzdGREZXZpYXRpb249IjMiIHJlc3VsdD0iYmx1ci0yIi8+CiAgICAgIDxmZUZsb29kIGZsb29kLW9wYWNpdHk9IjAuMjc1Ii8+CiAgICAgIDxmZUNvbXBvc2l0ZSBvcGVyYXRvcj0iaW4iIGluMj0iYmx1ci0yIi8+CiAgICAgIDxmZUNvbXBvc2l0ZSBpbj0iU291cmNlR3JhcGhpYyIvPgogICAgPC9maWx0ZXI+CiAgPC9kZWZzPgogIDxnIGlkPSJHcm91cF81MCIgZGF0YS1uYW1lPSJHcm91cCA1MCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzIC0xNzUpIj4KICAgIDxnIGlkPSJHcm91cF80NCIgZGF0YS1uYW1lPSJHcm91cCA0NCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTE3IC0yMjcpIj4KICAgICAgPGcgaWQ9ImFpbHVyb3BoaWxlIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg1Ni4xNDYgNDI0KSI+CiAgICAgICAgPHBhdGggaWQ9IlBhdGhfMjIiIGRhdGEtbmFtZT0iUGF0aCAyMiIgZD0iTTkyLjQxOSwzOS45M2MxLjM2Ni0zLjc1MywyLjQ1Mi05LjI4OC0uMTM0LTE0LjM0MkExNC4xNTcsMTQuMTU3LDAsMCwxLDkwLjgsMTkuMDc3Yy4wMzYtNi4wNzEuMTI4LTEyLjM5NS4yLTE2LjYzMUEyLjQsMi40LDAsMCwwLDg2Ljg4LjcyNmwtOS41MTUsOS43MjZhMjQuNDcxLDI0LjQ3MSwwLDAsMC0xNC4yOTMsMS4wMzVjLTIuNjg1LTIuNjA2LTcuNzE1LTcuMDI5LTEwLjYtOS41NGEyLjM3LDIuMzcsMCwwLDAtMi42MjMtLjM1MiwyLjQsMi40LDAsMCwwLTEuMzU4LDIuMjc1bC42ODEsMTUuMTUyYTQyLjQ2LDQyLjQ2LDAsMCwxLS43NjksMTAuMjQzQTU4LjY2NCw1OC42NjQsMCwwLDAsNDcuMiw0My40NTksMjYuNzE2LDI2LjcxNiwwLDAsMCwzMi44NzksNDkuNWMtNy44MDYsNi4zMjItMTIuODU3LDE2LjYyMS0xNS4wMTIsMzAuNjEzYTEuMTUsMS4xNSwwLDAsMCwyLjI3NC4zNUMyMi4yMDcsNjcuMDU3LDI2Ljk4LDU3LjI0MSwzNC4zMjcsNTEuMjljNi41NjgtNS4zMTksMTIuOS01LjU4OSwxNC4xLTUuNTg5YTEuMTUsMS4xNSwwLDAsMCwxLjE0Ni0xLjI0OCw1NC41NTksNTQuNTU5LDAsMCwxLDEuMDg4LTE0LjczNyw0NC43NDgsNDQuNzQ4LDAsMCwwLC44MTItMTAuOEw1MC43OTIsMy43NjZhLjA5MS4wOTEsMCwwLDEsLjA1OS0uMS4wODcuMDg3LDAsMCwxLC4xMTIuMDE1YzMuMDY3LDIuNjcxLDguNTc2LDcuNTE3LDExLjAyLDkuOTYyYTEuMTUsMS4xNSwwLDAsMCwxLjI0OC4yNTIsMjIuMDU5LDIyLjA1OSwwLDAsMSwxNC4xMDctMS4wNiwxLjE1MSwxLjE1MSwwLDAsMCwxLjE5Mi0uMjg1TDg4LjUyNCwyLjMzNWEuMDg5LjA4OSwwLDAsMSwuMTE2LS4wMjQuMDg2LjA4NiwwLDAsMSwuMDYzLjFjLS4wNzIsNC4yNDItLjE2NCwxMC41NzUtLjIsMTYuNjU2YTE2LjQ2OCwxNi40NjgsMCwwLDAsMS43MzMsNy41NzNjMi4yMDgsNC4zMTYsMS4yMyw5LjE4My4wMiwxMi41MDdhMTYuNzUyLDE2Ljc1MiwwLDAsMC0uNTA2LDkuNzVjMS42NTQsNi43NDQsMy4zNTgsMTkuOS0zLjgxNywzMi4yMjRhMS4xNSwxLjE1LDAsMSwwLDEuOTg4LDEuMTU3YzcuNTgxLTEzLjAyNCw1LjgtMjYuODQ4LDQuMDYzLTMzLjkzQTE0LjQ2MSwxNC40NjEsMCwwLDEsOTIuNDE5LDM5LjkzWiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCAwKSIvPgogICAgICAgIDxwYXRoIGlkPSJQYXRoXzIzIiBkYXRhLW5hbWU9IlBhdGggMjMiIGQ9Ik0yNDQuMDA4LDEyOS42ODVhMS4xNSwxLjE1LDAsMCwwLDIuMywwLDQuNyw0LjcsMCwwLDAtOS4zOTQsMCwxLjE1LDEuMTUsMCwwLDAsMi4zLDAsMi40LDIuNCwwLDAsMSw0Ljc5MywwWiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTE3Ny4wNjIgLTEwMS4wMjUpIi8+CiAgICAgICAgPHBhdGggaWQ9IlBhdGhfMjQiIGRhdGEtbmFtZT0iUGF0aCAyNCIgZD0iTTMyNS42MTQsMTI0Ljk4OGE0LjcsNC43LDAsMCwwLTQuNyw0LjcsMS4xNSwxLjE1LDAsMSwwLDIuMywwLDIuNCwyLjQsMCwwLDEsNC43OTMsMCwxLjE1LDEuMTUsMCwxLDAsMi4zLDBBNC43LDQuNywwLDAsMCwzMjUuNjE0LDEyNC45ODhaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjQ0Ljk2IC0xMDEuMDI1KSIvPgogICAgICAgIDxwYXRoIGlkPSJQYXRoXzI1IiBkYXRhLW5hbWU9IlBhdGggMjUiIGQ9Ik0yNzQuOTU3LDE4Mi41MTdhMS4xNSwxLjE1LDAsMCwwLTEuMTUsMS4xNSwzLjMsMy4zLDAsMSwxLTYuNjA2LDAsMS4xNSwxLjE1LDAsMCwwLTIuMywwLDMuMywzLjMsMCwxLDEtNi42MDYsMCwxLjE1LDEuMTUsMCwwLDAtMi4zLDAsNS42LDUuNiwwLDAsMCwxMC4wNTcsMy40LDUuNiw1LjYsMCwwLDAsMTAuMDU3LTMuNEExLjE1LDEuMTUsMCwwLDAsMjc0Ljk1NywxODIuNTE3WiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTE5Mi40ODMgLTE0Ny41MjUpIi8+CiAgICAgIDwvZz4KICAgIDwvZz4KICAgIDxnIGlkPSJjb252ZXJzYXRpb24tc3BlZWNoLWJ1YmJsZXMtIiB0cmFuc2Zvcm09Im1hdHJpeCgwLjk5NSwgLTAuMTA1LCAwLjEwNSwgMC45OTUsIDMyLjI2NSwgMTk4LjYwMSkiPgogICAgICA8ZyB0cmFuc2Zvcm09Im1hdHJpeCgwLjk5LCAwLjEsIC0wLjEsIDAuOTksIC02LjgyLCAtMTAuNjgpIiBmaWx0ZXI9InVybCgjUGF0aF8yNykiPgogICAgICAgIDxwYXRoIGlkPSJQYXRoXzI3LTIiIGRhdGEtbmFtZT0iUGF0aCAyNyIgZD0iTTIzLjE1NC45MzVjMTIuNzg4LDAsMjMuMTU0LDguMTg5LDIzLjE1NCwxOC4yODdhMTYuMzY0LDE2LjM2NCwwLDAsMS02LjEzMiwxMi40Yy4xNDYsMy4xNzUuOCw3LjQ0NCwzLjExNiw5LjY0Ni00LjQyMiwwLTguOTUxLTIuOTI2LTExLjYzNi01LjAzNGEyOC40NjMsMjguNDYzLDAsMCwxLTguNSwxLjI3N0MxMC4zNjYsMzcuNTA5LDAsMjkuMzIsMCwxOS4yMjJTMTAuMzY2LjkzNSwyMy4xNTQuOTM1WiIgdHJhbnNmb3JtPSJtYXRyaXgoMC45OSwgLTAuMSwgMC4xLCAwLjk5LCA3LjksIDkuOTEpIiBvcGFjaXR5PSIwLjA5NyIvPgogICAgICA8L2c+CiAgICA8L2c+CiAgICA8ZyB0cmFuc2Zvcm09Im1hdHJpeCgxLCAwLCAwLCAxLCAyNC4zNiwgMTg4LjY5KSIgZmlsdGVyPSJ1cmwoI3BhdGg1KSI+CiAgICAgIDxwYXRoIGlkPSJwYXRoNS0yIiBkYXRhLW5hbWU9InBhdGg1IiBkPSJNMTYuODksMjQuNTA4aDBhMi4zNCwyLjM0LDAsMCwwLDIuNTI4LDIuMjEyQTMuMzMyLDMuMzMyLDAsMCwwLDIyLjEsMjUuM2MwLS4xNTgtLjE1OC0uNDc0LS4zMTYtLjQ3NHMtLjMxNi40NzQtMS4xMDYuNDc0Yy0xLjI2NCwwLTEuMjY0LTEuMjY0LTEuMjY0LTIuNjg2VjEyLjY1N2MtLjc5LDAtMS43MzguMzE2LTIuNTI4LjMxNlYyMy4wODZBNi4yMTksNi4yMTksMCwwLDEsMTIuNzgxLDI1LjNjLTEuOSwwLTIuMzctMS41OC0yLjM3LTMuNDc2VjE1LjY1OWMwLTEuMTA2LS4xNTgtMy0uMTU4LTMtLjk0OCwwLTEuOS4zMTYtMi42ODYuMzE2LDAsMCwuMzE2LDIuMzcuMzE2LDMuMzE4djUuODQ2YzAsMS45LjMxNiwzLjQ3Ni4zMTYsNC41ODIsMCwxLjktLjQ3NCwzLjMxOC0uNDc0LDUuMDU2QTIuMjE0LDIuMjE0LDAsMCwwLDkuNDYzLDMzLjgzYy43OSwwLDEuNDIyLS42MzIsMS40MjItMS45LDAtMS40MjItMS4xMDYtMy42MzQtMS4xMDYtNS42ODgsMC0uMTU4LjE1OC0uMzE2LjQ3NC0uMzE2YTIuMzY3LDIuMzY3LDAsMCwwLDEuOS43OUE1LjkyNCw1LjkyNCwwLDAsMCwxNi44OSwyNC41MDhaTTE2Ljg5LDI0LjUwOFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE5LjA3IDQuNzQpIi8+CiAgICA8L2c+CiAgPC9nPgo8L3N2Zz4=
+
+locale: "en"
+groupings:
+  - title: "Basic Hidden"
+    visible: false
+    variables:
+    - compartment_ocid
+    - tenancy_ocid
+    - region
+    # Instance advanced options hidden
+    - instance_shape
+    - instance_ocpus
+    - instance_shape_config_memory_in_gbs
+    - image_operating_system
+    - image_operating_system_version
+    - instance_visibility
+
+  - title: ${Messages.solutionsHub.generalConfig()}
+    variables:
+    - num_nodes
+
+  - title: ${Messages.solutionsHub.optionalConfig()}
+    variables:
+    - autonomous_database_name
+    - use_only_always_free_eligible_resources
+    - show_advanced
+    - generate_public_ssh_key
+    - public_ssh_key
+    - is_pv_encryption_in_transit_enabled
+
+  - title: ${Messages.solutionsHub.solutions.mushopQuickstarts.groupings.optionsEncryptionTitle()}
+    variables:
+    - use_encryption_from_oci_vault
+    - create_new_encryption_key
+    - encryption_key_id
+    - create_vault_policies_for_group
+    - user_admin_group_for_vault_policy
+
+  - title: ${Messages.solutionsHub.solutions.mushopQuickstarts.groupings.optionsAdvCompute()}
+    variables:
+    # Uncomment these and remove them from the hidden section to enable shape selection.
+    # - instance_shape
+    # - instance_ocpus
+    # - instance_shape_config_memory_in_gbs
+    # - image_operating_system
+    # - image_operating_system_version
+    # - instance_visibility
+
+  - title: ${Messages.solutionsHub.solutions.mushopQuickstarts.groupings.optionsAdvLB()}
+    variables:
+    - lb_shape
+    - lb_shape_details_minimum_bandwidth_in_mbps
+    - lb_shape_details_maximum_bandwidth_in_mbps
+    - lb_compartment_ocid
+    - create_secondary_vcn
+    - create_lpg_policies_for_group
+    - user_admin_group_for_lpg_policy
+
+  - title: ${Messages.solutionsHub.solutions.mushopQuickstarts.groupings.optionsAdvATP()}
+    variables:
+    - autonomous_database_is_free_tier
+    - autonomous_database_visibility
+
+  - title: ${Messages.solutionsHub.solutions.mushopQuickstarts.groupings.optionsAdvOS()}
+    variables:
+    - object_storage_mushop_media_compartment_ocid
+    - object_storage_mushop_media_visibility
+
+  - title: "Extras Hidden"
+    variables:
+      - user_ocid
+      - fingerprint
+      - private_key_path
+      - autonomous_database_db_version
+      - autonomous_database_license_model
+      - autonomous_database_cpu_core_count
+      - autonomous_database_data_storage_size_in_tbs
+      - autonomous_database_wallet_generate_type
+      - oracle_client_version
+      - vault_display_name
+      - vault_type
+      - vault_key_display_name
+      - vault_key_key_shape_algorithm
+      - vault_key_key_shape_length
+      - object_storage_mushop_media_read_par_expiration_date
+      - network_cidrs
+      - services_in_mock_mode
+    visible: false
+
+variables:
+  compartment_ocid:
+    type: oci:identity:compartment:id
+    required: true
+    title: ${Messages.solutionsHub.genericVariables.compartment.title()}
+    description: ${Messages.solutionsHub.genericVariables.compartment.description()}
+
+  num_nodes:
+    type: enum
+    enum:
+    - "1"
+    - "2"
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.numNodesTitle()}
+    description: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.numNodesDescription()}
+    default: "2"
+    required: true
+
+  autonomous_database_name:
+    type: string
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.autonomousDatabaseNameTitle()}
+    description: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.autonomousDatabaseNameDescription()}
+    minLength: 1
+    maxLength: 10
+    pattern: "^[a-zA-Z][a-zA-Z0-9]+$"
+    required: true
+
+  show_advanced:
+    type: boolean
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.showAdvancedTitle()}
+    description: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.showAdvancedDescription()}
+    visible: false
+
+  generate_public_ssh_key:
+    type: boolean
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.generatePublicSshKeyTitle()}
+    description: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.generatePublicSshKeyDescription()}
+    visible:
+      and:
+        - show_advanced
+
+  public_ssh_key:
+    type: oci:core:ssh:publickey
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.publicSshKeyTitle()}
+    description: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.publicSshKeyDescription()}
+    additionalProps:
+      allowMultiple: true
+    pattern: "((^(ssh-rsa AAAAB3NzaC1yc2|ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNT|ecdsa-sha2-nistp384 AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzOD|ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1Mj|ssh-ed25519 AAAAC3NzaC1lZDI1NTE5|ssh-dss AAAAB3NzaC1kc3)[0-9A-Za-z+\/]+[=]{0,3})( [^,]*)?)(,((ssh-rsa AAAAB3NzaC1yc2|ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNT|ecdsa-sha2-nistp384 AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzOD|ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1Mj|ssh-ed25519 AAAAC3NzaC1lZDI1NTE5|ssh-dss AAAAB3NzaC1kc3)[0-9A-Za-z+\/]+[=]{0,3})( [^,]*)?)*$"
+    visible:
+      and:
+        - and:
+          - show_advanced
+        - not:
+          - generate_public_ssh_key
+
+  is_pv_encryption_in_transit_enabled:
+    type: boolean
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.isPvEncryptionInTransitEnabledTitle()}
+    description: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.isPvEncryptionInTransitEnabledDescription()}
+    visible:
+      and:
+        - show_advanced
+
+  use_encryption_from_oci_vault:
+    type: boolean
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.useEncryptionFromOciVaultTitle()}
+    description: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.useEncryptionFromOciVaultDescription()}
+    visible:
+      and:
+        - show_advanced
+
+  create_new_encryption_key:
+    type: boolean
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.createNewEncryptionKeyTitle()}
+    description: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.createNewEncryptionKeyDescription()}
+    visible:
+      and:
+        - show_advanced
+        - use_encryption_from_oci_vault
+
+  encryption_key_id:
+    type: string
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.encryptionKeyIdTitle()}
+    description: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.encryptionKeyIdDescription()}
+    visible:
+      and:
+        - and:
+          - show_advanced
+          - use_encryption_from_oci_vault
+        - not:
+          - create_new_encryption_key
+
+  create_vault_policies_for_group:
+    type: boolean
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.createVaultPoliciesForGroupTitle()}
+    description: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.createVaultPoliciesForGroupDescription()}
+    visible:
+      and:
+        - show_advanced
+        - use_encryption_from_oci_vault
+        - create_new_encryption_key
+
+  user_admin_group_for_vault_policy:
+    type: string
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.userAdminGroupForVaultPolicyTitle()}
+    description: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.userAdminGroupForVaultPolicyDescription()}
+    visible:
+      and:
+        - show_advanced
+        - use_encryption_from_oci_vault
+        - create_new_encryption_key
+        - create_vault_policies_for_group
+
+  use_only_always_free_eligible_resources:
+    type: boolean
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.useOnlyAlwaysFreeElegibleResourcesTitle()}
+    description: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.useOnlyAlwaysFreeElegibleResourcesDescription()}
+    visible: false
+
+  instance_shape:
+    type: oci:core:instanceshape:name
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.instanceShapeTitle()}
+    description: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.instanceShapeDescription()}
+    dependsOn:
+      compartmentId: compartment_ocid
+    required: true
+    visible:
+      not:
+        - use_only_always_free_eligible_resources
+
+  instance_ocpus:
+    type: integer
+    minimum: 1
+    maximum: 64
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.instanceOcpusTitle()}
+    description: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.instanceOcpusDescription()}
+    visible:
+      and:
+        - not:
+          - use_only_always_free_eligible_resources
+        - or:
+          - eq:
+            - instance_shape 
+            - "VM.Standard.E3.Flex"
+          - eq:
+            - instance_shape 
+            - "VM.Standard.E4.Flex"
+
+  instance_shape_config_memory_in_gbs:
+    type: integer
+    minimum: 1
+    maximum: 1024
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.instanceShapeConfigMemoryInGbsTitle()}
+    description: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.instanceShapeConfigMemoryInGbsDescription()}
+    visible:
+      and:
+        - not:
+          - use_only_always_free_eligible_resources
+        - or:
+          - eq:
+            - instance_shape 
+            - "VM.Standard.E3.Flex"
+          - eq:
+            - instance_shape 
+            - "VM.Standard.E4.Flex"
+
+  image_operating_system:
+    type: string
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.imageOperatingSystemTitle()}
+    description: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.imageOperatingSystemDescription()}
+    required: true
+    visible:
+      and:
+        - and:
+          - show_advanced
+        - not:
+          - use_only_always_free_eligible_resources
+
+  image_operating_system_version:
+    type: string
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.imageOperatingSystemVersionTitle()}
+    description: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.imageOperatingSystemVersionDescription()}
+    required: true
+    visible:
+      and:
+        - and:
+          - show_advanced
+        - not:
+          - use_only_always_free_eligible_resources
+
+  instance_visibility:
+    type: enum
+    enum:
+    - "Public"
+    - "Private"
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.instanceVisibilityTitle()}
+    description: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.instanceVisibilityDescription()}
+    visible:
+      and:
+        - and:
+          - show_advanced
+        - not:
+          - use_only_always_free_eligible_resources
+
+  lb_shape:
+    type: enum
+    enum:
+    - "flexible"
+    - "10Mbps-Micro"
+    - "10Mbps"
+    - "100Mbps"
+    - "400Mbps"
+    - "8000Mbps"
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.lbShapeTitle()}
+    description: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.lbShapeDescription()}
+    visible:
+      and:
+        - and:
+          - show_advanced
+        - not:
+          - use_only_always_free_eligible_resources
+
+  lb_shape_details_minimum_bandwidth_in_mbps:
+    type: integer
+    minimum: 10
+    maximum: 8000
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.lbShapeDetailsMinimumBandwidthInMbpsTitle()}
+    description: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.lbShapeDetailsMinimumBandwidthInMbpsDescription()}
+    visible:
+      and:
+        - and:
+          - show_advanced
+        - not:
+          - use_only_always_free_eligible_resources
+        - eq:
+          - lb_shape 
+          - "flexible"
+
+  lb_shape_details_maximum_bandwidth_in_mbps:
+    type: integer
+    minimum: 10
+    maximum: 8000
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.lbShapeDetailsMaximumBandwidthInMbpsTitle()}
+    description: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.lbShapeDetailsMaximumBandwidthInMbpsDescription()}
+    visible:
+      and:
+        - and:
+          - show_advanced
+        - not:
+          - use_only_always_free_eligible_resources
+        - eq:
+          - lb_shape 
+          - "flexible"
+
+  lb_compartment_ocid:
+    type: oci:identity:compartment:id
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.lbCompartmentOcidTitle()}
+    description: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.lbCompartmentOcidDescription()}
+    default: compartment_ocid
+    visible:
+      and:
+        - and:
+          - show_advanced
+        - not:
+          - use_only_always_free_eligible_resources
+
+  create_secondary_vcn:
+    type: boolean
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.createSecondaryVcnTitle()}
+    description: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.createSecondaryVcnDescription()}
+    visible:
+      and:
+        - and:
+          - show_advanced
+        - not:
+          - use_only_always_free_eligible_resources
+
+  create_lpg_policies_for_group:
+    type: boolean
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.createLpgPoliciesForGroupTitle()}
+    description: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.createLpgPoliciesForGroupDescription()}
+    visible:
+      and:
+        - and:
+          - show_advanced
+          - create_secondary_vcn
+        - not:
+          - use_only_always_free_eligible_resources
+
+  user_admin_group_for_lpg_policy:
+    type: string
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.userAdminGroupForLpgPolicyTitle()}
+    description: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.userAdminGroupForLpgPolicyDescription()}
+    visible:
+      and:
+        - and:
+          - show_advanced
+          - create_secondary_vcn
+          - create_lpg_policies_for_group
+        - not:
+          - use_only_always_free_eligible_resources
+
+  autonomous_database_is_free_tier:
+    type: boolean
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.autonomousDatabaseIsFreeTierTitle()}
+    description: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.autonomousDatabaseIsFreeTierDescription()}
+    visible:
+      and:
+        - and:
+          - show_advanced
+        - not:
+          - use_only_always_free_eligible_resources
+
+  autonomous_database_visibility:
+    type: enum
+    enum:
+    - "Public"
+    # - "Private"
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.autonomousDatabaseVisibilityTitle()}
+    description: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.autonomousDatabaseVisibilityDescription()}
+    visible:
+      and:
+        - and:
+          - show_advanced
+        - not:
+          - use_only_always_free_eligible_resources
+
+  object_storage_mushop_media_compartment_ocid:
+    type: oci:identity:compartment:id
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.objectStorageMushopMediaCompartmentOcidTitle()}
+    description: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.objectStorageMushopMediaCompartmentOcidDescription()}
+    default: compartment_ocid
+    visible:
+      and:
+        - and:
+          - show_advanced
+        - not:
+          - use_only_always_free_eligible_resources
+
+  object_storage_mushop_media_visibility:
+    type: enum
+    enum:
+    - "Public"
+    - "Private"
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.objectStorageMushopMediaVisibilityTitle()}
+    description: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.objectStorageMushopMediaVisibilityDescription()}
+    visible:
+      and:
+        - and:
+          - show_advanced
+        - not:
+          - use_only_always_free_eligible_resources
+
+  object_storage_mushop_media_read_par_expiration_date:
+    type: string
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.objectStorageMushopMediaReadParExpirationDateTitle()}
+    description: ${Messages.solutionsHub.solutions.mushopQuickstarts.variables.objectStorageMushopMediaReadParExpirationDateDescription()}
+    visible:
+      and:
+        - and:
+          - show_advanced
+        - not:
+          - use_only_always_free_eligible_resources
+
+outputGroups:
+  - title: ${Messages.solutionsHub.solutions.mushopQuickstarts.outputGroups.appDetailsOutputTitle()}
+    outputs:
+      - lb_public_url
+      - autonomous_database_password
+      - generated_private_key_pem
+      - deploy_id
+      - deployed_to_region
+      - mushop_basic_source_code
+      - dev
+      - comments
+
+outputs:
+  lb_public_url:
+    type: link
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.outputs.lbPublicUrlTitle()}
+    visible: true
+  
+  autonomous_database_password:
+    type: string
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.outputs.autonomousDatabasePasswordTitle()}
+    displayText: ${Messages.solutionsHub.solutions.mushopQuickstarts.outputs.autonomousDatabasePasswordDescription()}
+    visible: true
+  
+  generated_private_key_pem:
+    type: string
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.outputs.generatedPrivateKeyPemTitle()}
+    displayText: ${Messages.solutionsHub.solutions.mushopQuickstarts.outputs.generatedPrivateKeyPemDescription()}
+    visible: true
+
+  dev:
+    type: string
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.outputs.devTitle()}
+    visible: true
+  
+  deploy_id:
+    type: string
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.outputs.deployIdTitle ()}
+    visible: true
+
+  deployed_to_region:
+    type: string
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.outputs.deployedToRegionTitle()}
+    visible: true
+
+  mushop_basic_source_code:
+    type: link
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.outputs.mushopBasicSourceCodeTitle()}
+    visible: true
+
+  comments:
+    type: string
+    title: ${Messages.solutionsHub.solutions.mushopQuickstarts.outputs.commentsTitle()}
+    displayText: ${Messages.solutionsHub.solutions.mushopQuickstarts.outputs.commentsDescription()}
+    visible: true
+  
+primaryOutputButton: ${lb_public_url}
